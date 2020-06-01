@@ -25,9 +25,9 @@ app.set('view engine', 'hbs');
 
 
 
-// Configurando views del webservices
-app.use(require('./server/routes/view'));
-app.use(require('./server/routes/Usuario'));
+// Configurando globla de rutas
+app.use(require('./server/routes/index'));
+
 
 
 
