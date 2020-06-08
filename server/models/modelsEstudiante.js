@@ -1,32 +1,31 @@
 const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
 let Schema = mongoose.Schema;
 
 let grupos = {
     values: ['1A', '1B', '1C', '2A', '2B', '2C', '3A', '3B', '3C'],
     menssage: '{VALUES} grados o grupos no validos'
 };
-let alumnoShema = new Schema({
+let alumnoSchema = new Schema({
     nombre: {
         type: String,
-        require: [true, 'El nombre es requerido']
+        required: [true, 'El nombre es requerido']
     },
     apeMaterno: {
         type: String,
-        require: [true, 'El Apellido Materno es requerido']
+        required: [true, 'El Apellido Materno es requerido']
     },
     apePaterno: {
         type: String,
         require: [true, 'El Apellido Paterno es requerido']
     },
-    grados: {
+    grado: {
         type: String,
-        require: [true, 'El grado es requerido'],
-        enum: grupos
+        enum: grupos,
+        required: [true, 'El grado es requerido']
     },
     img: {
         type: String,
-        require: false
+        required: false
     },
     estado: {
         type: Boolean,
@@ -39,8 +38,4 @@ let alumnoShema = new Schema({
 });
 
 
-alumnoShema.plugin(uniqueValidator, {
-    menssage: '{PATH} debe ser único'
-});
-
-module.exports = mongoose.model('Alumno', alumnoShema);
+module.exports = mongoose.model('Alumno', alumnoSchema);

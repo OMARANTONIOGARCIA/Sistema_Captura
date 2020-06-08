@@ -25,7 +25,7 @@ app.set('view engine', 'hbs');
 
 
 
-// Configurando globla de rutas
+// Configuracion globla de rutas
 app.use(require('./server/routes/index'));
 
 

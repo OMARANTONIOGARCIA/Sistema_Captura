@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const _ = require('underscore');
 const Usuario = require('../models/modelsUsuario');
+const { VerificacionToken, VerificacionAdmin_role } = require('../middlewares/autenticacion');
 const app = express();
 
 // Rutas de Usuario
@@ -27,7 +28,20 @@ app.get('/Users', (req, res) => {
 
 });
 
-app.post('/Users', (req, res) => {
+app.put('/Users/:id', [VerificacionToken, VerificacionAdmin_role], (req, res) => {
+
+    let id = req.params.id
+    let body = _.pick(bod.req, ['nombre', 'apeMaterno', 'apePaterno', 'email', 'img', 'role']);
+
+    Usuario.findByIdAndUpdate(id, body, { new: true, runValidators: true }, (err, usuarioDB) => {
+        if (err) { return res.status(400).json({ ok: false, err }); }
+        res.status(200).json({ ok: true, users: usuarioDB })
+    })
+
+});
+
+
+app.post('/Users', [VerificacionToken, VerificacionAdmin_role], (req, res) => {
 
     let body = req.body;
 
@@ -43,27 +57,15 @@ app.post('/Users', (req, res) => {
 
     usuario.save((err, UsuarioDB) => {
 
-        let result = err ? res.status(400).json({ ok: false, mensaje: 'Faltan datos', err }) : res.status(200).json({ Ok: true, usuario: UsuarioDB });
+        let result = err ? res.status(400).json({ ok: false, menssaje: 'Faltan datos', err }) : res.status(200).json({ Ok: true, users: UsuarioDB });
         return result;
 
     });
 
 });
 
-app.put('/Users/:id', (req, res) => {
 
-    let id = req.params.id
-    let body = _.pick(bod.req, ['nombre', 'apeMaterno', 'apePaterno', 'email', 'img', 'role']);
-
-    Usuario.findByIdAndUpdate(id, body, { new: true, runValidators: true }, (err, usuarioDB) => {
-        if (err) { return res.status(400).json({ ok: false, err }); }
-        res.status(200).json({ ok: true, usuario: usuarioDB })
-    })
-
-});
-
-
-app.delete('/Users/:id', (req, res) => {
+app.delete('/Users/:id', [VerificacionToken, VerificacionAdmin_role], (req, res) => {
 
     let id = req.params.id;
     let cambioEstado = { estado: false };
@@ -72,7 +74,9 @@ app.delete('/Users/:id', (req, res) => {
 
         if (err) { return res.status(400).json({ ok: false, err }); };
         if (!usersDelete) { return res.status(400).json({ ok: false, err: { menssaje: 'Users no encontrado' } }); };
-        res.json({ ok: true, usuario: usersDelete });
+        res.json({ ok: true, users: usersDelete });
+
+
         //let result = err ? res.status(400).json({ ok: false, err }) : res.status(200).json({ Ok: true, usuario: usersDelete });
         //return result;
 

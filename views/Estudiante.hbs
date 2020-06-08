@@ -49,7 +49,7 @@
             <div class="col-md-1">
               <!-- Button trigger modal -->
               <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-toggle="modal"
-                data-target="#exampleModal">
+                data-target="#ModalRegEstudiante">
                 REGISTRAR
               </button>
             </div>
@@ -64,18 +64,11 @@
                     <th scope="col">ID</th>
                     <th scope="col">NOMBRE DEL ALUMNO</th>
                     <th scope="col">GRUPO</th>
-                    <th scope="col">NOMBRE DEL PADRE</th>
-                    <th scope="col">ACCIÓN</th>
+                     <th scope="col">ACCIÓN</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                  </tr>
+                <tbody id="tableStudents">
+
                 </tbody>
               </table>
             </div>
@@ -84,53 +77,56 @@
           </div>
 
           <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          <div class="modal fade" id="ModalRegEstudiante" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <h4 class="modal-title" id="exampleModalLabel"><strong class="text-center">REGISTRAR ALUMNO</strong></h4>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form>
+                  <form enctype="multipart/form-data">
                     <div class="form-group">
-                      <label for="inputAddress">NOMBRE</label>
-                      <input type="text" class="form-control" id="inputAddress" placeholder="NOMBRE ...">
+                      <label for="inputnomStudents">NOMBRE</label>
+                      <input type="text" class="form-control" id="inputnomStudents" name="inputnomStudents" placeholder="NOMBRE ...">
                     </div>
                     <div class="form-group">
-                      <label for="inputAddress2">APELLIDO MATERNO</label>
-                      <input type="text" class="form-control" id="inputAddress2" placeholder="APELLIDO MATERNO ...">
+                      <label for="inputmatStudents">APELLIDO MATERNO</label>
+                      <input type="text" class="form-control" id="inputmatStudents" name="inputmatStudents" placeholder="APELLIDO MATERNO ...">
                     </div>
                     <div class="form-group">
-                      <label for="inputAddress2">APELLIDO PATERNO</label>
-                      <input type="text" class="form-control" id="inputAddress2" placeholder="APELLIDO PATERNO ...">
+                      <label for="inputpatStudents">APELLIDO PATERNO</label>
+                      <input type="text" class="form-control" id="inputpatStudents" name="inputpatStudents" placeholder="APELLIDO PATERNO ...">
                     </div>
                     <div class="form-group">
-                      <label for="inputState">GRADO Y GRUPO DEL ALUMNO</label>
-                      <select id="inputState" class="form-control">
-                        <option selected>Choose...</option>
-                        <option>...</option>
+                      <label for="inputgrupStudents">GRADO Y GRUPO</label>
+                      <select id="inputgrupStudents" name="inputgrupStudents" class="form-control">
+                        <option selected value="selected">ELIGE UNA OPCIÓN</option>
+                        <option value="1A">1A</option>
+                        <option value="1B">1B</option>
+                        <option value="1C">1C</option>
+                        <option value="2A">2A</option>
+                        <option value="2B">2B</option>
+                        <option value="2C">2C</option>
+                        <option value="3A">3A</option>
+                        <option value="3B">3B</option>
+                        <option value="3C">3C</option>                        
                       </select>
                     </div>
                     <div class="form-group">
-                      <label for="inputState">PADRE DEL ALUMNO</label>
+                      <label for="inputState">FOTO DEL ALUMNO</label>
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="customFile">
-                        <label class="custom-file-label" for="customFile">Choose file</label>
+                        <input type="file" class="custom-file-input" id="FileStudents" name="FileStudents">
+                        <label class="custom-file-label" for="FileStudents">ELIJE UNA FOTO DEL ESTUDIANTE</label>
                       </div>
                     </div>
                     <hr>
-
-                    <button type="submit" class="btn btn-primary btn-user btn-block">Sign in</button>
+                    <input type="button" id="btnRegStudents" class="btn btn-primary btn-user btn-block" value="GUARDAR">
                   </form>
                   <hr>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
               </div>
             </div>

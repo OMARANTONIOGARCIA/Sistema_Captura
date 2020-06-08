@@ -7,27 +7,27 @@ let rolesValidos = {
     menssage: '{VALUE} no es rol valido'
 };
 
-let usuarioShema = new Schema({
+let usuarioSchema = new Schema({
     nombre: {
         type: String,
-        require: [true, 'El nombre es requerido']
+        required: [true, 'El nombre es requerido']
     },
     apeMaterno: {
         type: String,
-        require: [true, 'El Apellido Materno es requerido']
+        required: [true, 'El Apellido Materno es requerido']
     },
     apePaterno: {
         type: String,
-        require: [true, 'El Apellido Paterno es requerido']
+        required: [true, 'El Apellido Paterno es requerido']
     },
     email: {
         type: String,
         unique: true,
-        require: [true, 'El correo es requerido']
+        required: [true, 'El correo es requerido']
     },
     password: {
         type: String,
-        require: [true, 'El password es requerido']
+        required: [true, 'El password es requerido']
     },
     role: {
         type: String,
@@ -36,7 +36,7 @@ let usuarioShema = new Schema({
     },
     img: {
         type: String,
-        require: false
+        required: false
     },
     estado: {
         type: Boolean,
@@ -48,9 +48,17 @@ let usuarioShema = new Schema({
     },
 });
 
+usuarioSchema.methods.toJSON = function() {
 
-usuarioShema.plugin(uniqueValidator, {
+    let user = this;
+    let userObject = user.toObject();
+    delete userObject.password;
+
+    return userObject;
+}
+
+usuarioSchema.plugin(uniqueValidator, {
     menssage: '{PATH} debe ser único'
 });
 
-module.exports = mongoose.model('Usuario', usuarioShema);
+module.exports = mongoose.model('Usuario', usuarioSchema);

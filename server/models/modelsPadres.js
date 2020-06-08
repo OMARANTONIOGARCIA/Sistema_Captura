@@ -2,36 +2,42 @@ const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 let Schema = mongoose.Schema;
 
-let grupos = {
-    values: ['1A', '1B', '1C', '2A', '2B', '2C', '3A', '3B', '3C'],
-    menssage: '{VALUES} grados o grupos no validos'
-};
 
 let padresShema = new Schema({
     nombre: {
         type: String,
-        require: [true, 'El nombre es requerido']
+        required: [true, 'El nombre es requerido']
     },
     apeMaterno: {
         type: String,
-        require: [true, 'El Apellido Materno es requerido']
+        required: [true, 'El Apellido Materno es requerido']
     },
     apePaterno: {
         type: String,
-        require: [true, 'El Apellido Paterno es requerido']
+        required: [true, 'El Apellido Paterno es requerido']
     },
     img: {
         type: String,
-        require: false
+        required: [true, 'La imagen es requerido']
     },
     estado: {
         type: Boolean,
         default: true
     },
+    alumno: {
+        type: Schema.Types.ObjectId,
+        ref: 'Alumno',
+        required: [true, 'El Alumno es requerido']
+    },
+    usuario: {
+        type: Schema.Types.ObjectId,
+        ref: 'Usuario',
+        required: [true, 'El usuario es requerido']
+    },
     fechaupdate: {
         type: Date,
         default: new Date()
-    },
+    }
 });
 
 
@@ -39,4 +45,5 @@ padresShema.plugin(uniqueValidator, {
     menssage: '{PATH} debe ser único'
 });
 
-module.exports = mongoose.model('Padres', padresShema);
+module.exports = mongoose.model('Padre', padresShema);
+module.exports = mongoose.model('Padre', padresShema);
